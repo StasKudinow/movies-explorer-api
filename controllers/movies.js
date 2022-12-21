@@ -1,5 +1,5 @@
 /* eslint-disable linebreak-style */
-const Movie = require('../models/user');
+const Movie = require('../models/movie');
 
 module.exports.getMovies = (req, res) => {
   Movie.find({})
@@ -8,9 +8,7 @@ module.exports.getMovies = (req, res) => {
 };
 
 module.exports.postMovie = (req, res) => {
-// заглушки айдишников
   const owner = req.user._id;
-  const movieId = req.user._id;
   const {
     country,
     director,
@@ -20,6 +18,7 @@ module.exports.postMovie = (req, res) => {
     image,
     trailerLink,
     thumbnail,
+    movieId,
     nameRU,
     nameEN,
   } = req.body;

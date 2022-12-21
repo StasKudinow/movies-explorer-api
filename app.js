@@ -21,11 +21,10 @@ app.use((req, res, next) => {
   req.user = {
     _id: '63a1bd2462880dc539e8d4b3',
   };
-
-  app.use(router);
-
   next();
 });
+
+app.use(router);
 
 app.listen(PORT, () => {
   // eslint-disable-next-line no-console
