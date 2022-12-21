@@ -1,4 +1,3 @@
-/* eslint-disable linebreak-style */
 const jwt = require('jsonwebtoken');
 
 const { NODE_ENV, JWT_SECRET } = require('../utils/constants');

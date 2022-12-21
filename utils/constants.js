@@ -1,4 +1,3 @@
-/* eslint-disable linebreak-style */
 const STATUS_OK = 200;
 const STATUS_CREATED = 201;
 const ERROR_SERVER = 500;
@@ -10,7 +9,7 @@ const ERROR_FORBIDDEN = 403;
 const SALT_ROUND = 10;
 
 const { NODE_ENV, JWT_SECRET = 'JWT_SECRET' } = process.env;
-const { DB_ADDRESS = 'mongodb://localhost:27017/mestodb' } = process.env;
+const { DB_ADDRESS = 'mongodb://localhost:27017/moviesdb' } = process.env;
 
 module.exports = {
   STATUS_OK,

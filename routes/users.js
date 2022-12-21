@@ -1,10 +1,9 @@
-/* eslint-disable linebreak-style */
 const router = require('express').Router();
 
-const { getUser, createUser, updateUser } = require('../controllers/users');
+const { getUser, updateUser } = require('../controllers/users');
+const { userUpdateValidator } = require('../middlewares/validators/user-validators');
 
 router.get('/users/me', getUser);
-router.post('/users', createUser);
-router.patch('/users/me', updateUser);
+router.patch('/users/me', userUpdateValidator, updateUser);
 
 module.exports = router;

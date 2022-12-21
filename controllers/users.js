@@ -1,4 +1,3 @@
-/* eslint-disable linebreak-style */
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
@@ -14,10 +13,10 @@ const {
 
 const ValidationError = require('../errors/ValidationError');
 
-module.exports.getUser = (req, res) => {
+module.exports.getUser = (req, res, next) => {
   User.findById(req.user._id)
     .then((data) => res.send(data))
-    .catch(() => res.status(500).send({ message: 'Ошибка получения пользователя' }));
+    .catch(next);
 };
 
 module.exports.createUser = (req, res, next) => {
@@ -55,7 +54,7 @@ module.exports.login = (req, res, next) => {
     .catch(next);
 };
 
-module.exports.updateUser = (req, res) => {
+module.exports.updateUser = (req, res, next) => {
   const { name, email } = req.body;
   User.findByIdAndUpdate(
     req.user._id,
@@ -65,11 +64,11 @@ module.exports.updateUser = (req, res) => {
       runValidators: true,
     },
   )
-    .orFail(() => {
-      const error = new Error();
-      error.statusCode = 404;
-      throw error;
-    })
     .then((data) => res.send(data))
-    .catch(() => res.status(500).send({ message: 'Ошибка обновления пользователя' }));
+    .catch((err) => {
+      if (err.statusCode === ERROR_VALIDATION) {
+        return next(new ValidationError('Переданы некорректные данные'));
+      }
+      return next(err);
+    });
 };
