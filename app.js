@@ -11,7 +11,7 @@ const { requestLogger, errorLogger } = require('./middlewares/logger');
 const { DB_ADDRESS } = require('./utils/constants');
 const limiter = require('./middlewares/rate-limiter');
 
-const { PORT = 3001 } = process.env;
+const { PORT = 3000 } = process.env;
 
 const app = express();
 
@@ -41,5 +41,5 @@ app.listen(PORT, () => {
   // eslint-disable-next-line no-console
   console.log('Сервер запущен на:');
   // eslint-disable-next-line no-console
-  console.log('http://localhost:3001');
+  console.log('http://localhost:3000');
 });
