@@ -1,15 +1,21 @@
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const helmet = require('helmet');
 const { errors } = require('celebrate');
 
 const router = require('./routes/index');
 const { errorsHandler } = require('./middlewares/errors-handler');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const { DB_ADDRESS } = require('./utils/constants');
+const limiter = require('./middlewares/rate-limiter');
 
 const { PORT = 3000 } = process.env;
+
 const app = express();
+
+app.use(helmet());
 
 mongoose.set('strictQuery', true);
 mongoose.connect(DB_ADDRESS, {
@@ -18,6 +24,8 @@ mongoose.connect(DB_ADDRESS, {
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(limiter);
 
 app.use(requestLogger);
 
