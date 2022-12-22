@@ -41,5 +41,5 @@ app.listen(PORT, () => {
   // eslint-disable-next-line no-console
   console.log('Сервер запущен на:');
   // eslint-disable-next-line no-console
-  console.log('http://localhost:3000');
+  console.log('http://localhost:3001');
 });
