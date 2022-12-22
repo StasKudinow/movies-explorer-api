@@ -12,7 +12,7 @@ module.exports.moviePostValidator = celebrate({
     image: Joi.string().required().pattern(regExp),
     trailerLink: Joi.string().required().pattern(regExp),
     thumbnail: Joi.string().required().pattern(regExp),
-    movieId: Joi.string().length(24).hex().required(),
+    movieId: Joi.number().required(),
     nameRU: Joi.string().required(),
     nameEN: Joi.string().required(),
   }),

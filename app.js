@@ -5,6 +5,7 @@ const { errors } = require('celebrate');
 
 const router = require('./routes/index');
 const { errorsHandler } = require('./middlewares/errors-handler');
+const { requestLogger, errorLogger } = require('./middlewares/logger');
 const { DB_ADDRESS } = require('./utils/constants');
 
 const { PORT = 3000 } = process.env;
@@ -18,7 +19,11 @@ mongoose.connect(DB_ADDRESS, {
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+app.use(requestLogger);
+
 app.use(router);
+
+app.use(errorLogger);
 
 app.use(errors());
 

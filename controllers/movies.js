@@ -1,6 +1,12 @@
 const Movie = require('../models/movie');
 
-const { STATUS_CREATED, ERROR_VALIDATION } = require('../utils/constants');
+const {
+  STATUS_CREATED,
+  ERROR_VALIDATION,
+  MESSAGE_VALIDATION,
+  MESSAGE_NOT_FOUND,
+  MESSAGE_FORBIDDEN,
+} = require('../utils/constants');
 
 const ValidationError = require('../errors/ValidationError');
 const NotFoundError = require('../errors/NotFoundError');
@@ -44,7 +50,7 @@ module.exports.postMovie = (req, res, next) => {
     .then((movie) => res.status(STATUS_CREATED).send(movie))
     .catch((err) => {
       if (err.statusCode === ERROR_VALIDATION) {
-        return next(new ValidationError('Переданы некорректные данные'));
+        return next(new ValidationError(MESSAGE_VALIDATION));
       }
       return next(err);
     });
@@ -54,10 +60,10 @@ module.exports.deleteMovie = (req, res, next) => {
   Movie.findById(req.params._id)
     .then((data) => {
       if (!data) {
-        throw new NotFoundError('Запрашиваемый фильм не найден');
+        throw new NotFoundError(MESSAGE_NOT_FOUND);
       }
       if (data.owner.toString() !== req.user._id) {
-        throw new ForbiddenError('Нет доступа');
+        throw new ForbiddenError(MESSAGE_FORBIDDEN);
       }
       return res.send(data);
     })

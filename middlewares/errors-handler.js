@@ -1,4 +1,4 @@
-const { ERROR_SERVER } = require('../utils/constants');
+const { ERROR_SERVER, MESSAGE_SERVER } = require('../utils/constants');
 
 module.exports.errorsHandler = (err, req, res, next) => {
   const { statusCode = ERROR_SERVER, message } = err;
@@ -6,7 +6,7 @@ module.exports.errorsHandler = (err, req, res, next) => {
     .status(statusCode)
     .send({
       message: statusCode === ERROR_SERVER
-        ? 'На сервере произошла ошибка'
+        ? MESSAGE_SERVER
         : message,
     });
   next();

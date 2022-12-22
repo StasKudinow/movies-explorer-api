@@ -7,6 +7,8 @@ const {
   SALT_ROUND,
   ERROR_CONFLICT,
   ERROR_VALIDATION,
+  MESSAGE_VALIDATION,
+  MESSAGE_CONFLICT,
   NODE_ENV,
   JWT_SECRET,
 } = require('../utils/constants');
@@ -31,10 +33,10 @@ module.exports.createUser = (req, res, next) => {
     })
     .catch((err) => {
       if (err.code === 11000) {
-        return res.status(ERROR_CONFLICT).send({ message: 'Пользователь с переданным email уже существует' });
+        return res.status(ERROR_CONFLICT).send({ message: MESSAGE_CONFLICT });
       }
       if (err.statusCode === ERROR_VALIDATION) {
-        return next(new ValidationError('Переданы некорректные данные'));
+        return next(new ValidationError(MESSAGE_VALIDATION));
       }
       return next(err);
     });
@@ -67,7 +69,7 @@ module.exports.updateUser = (req, res, next) => {
     .then((data) => res.send(data))
     .catch((err) => {
       if (err.statusCode === ERROR_VALIDATION) {
-        return next(new ValidationError('Переданы некорректные данные'));
+        return next(new ValidationError(MESSAGE_VALIDATION));
       }
       return next(err);
     });
