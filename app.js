@@ -1,6 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
+const cors = require('cors');
 const bodyParser = require('body-parser');
 const { errors } = require('celebrate');
 
@@ -13,6 +14,20 @@ const limiter = require('./middlewares/rate-limiter');
 const { PORT = 3000 } = process.env;
 
 const app = express();
+
+const options = {
+  origin: [
+    'http://localhost:3000',
+    'https://staskudinow.github.io',
+  ],
+  methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
+  preflightContinue: false,
+  optionsSuccessStatus: 204,
+  allowedHeaders: ['Content-Type', 'origin', 'Authorization'],
+  credentials: true,
+};
+
+app.use('*', cors(options));
 
 mongoose.set('strictQuery', true);
 mongoose.connect(DB_ADDRESS, {
