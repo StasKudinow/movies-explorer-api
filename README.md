@@ -1,5 +1,5 @@
 # movies-explorer-api
 
-• IP 51.250.10.5
+• IP 62.84.125.241
 
 • Backend https://api.movies-explorer.sk.nomoredomains.club
