@@ -17,8 +17,9 @@ const app = express();
 
 const options = {
   origin: [
-    'http://localhost:3000',
-    'https://staskudinow.github.io',
+    'http://localhost:3010',
+    'http://movies-explorer.sk.nomoredomainsclub.ru',
+    'https://movies-explorer.sk.nomoredomainsclub.ru',
   ],
   methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
   preflightContinue: false,
